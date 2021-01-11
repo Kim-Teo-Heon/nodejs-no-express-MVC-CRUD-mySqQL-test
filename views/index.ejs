@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link href="./index.css" rel="stylesheet" type="text/css">
+  </head>
+<body>
+  <div class="table-data">
+    <table border="1">
+      <% for(var i=0; i<data.length ; i++){ console.log('index',data[i].list); %>
+        <tr>
+            <td><%=data[i].list %></td>
+            <td>
+              <a href="/update?id=<%=data[i].id%>">update</a>
+            </td>
+            <td>
+              <form action="/delete" method="POST">
+                <input type="hidden" name="id" value="<%=data[i].id%>">
+                <input type="submit" value="delete">
+              </form>
+            </td>
+        </tr>
+        <% }%>
+    </table>
+    </div>
+  
+<!--====form section start====-->
+
+<div class="crud-form">
+  <form action="/create" method="POST">
+     <input type="text" name="list" required>
+          <button type="submit">Submit</button>
+        </div>
+</div>
+<!--====form section start====-->
+</body>
+</html>
