@@ -1,25 +1,48 @@
-var http = require('http');
-var fs = require('fs');
-var path = require('path');
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const ejs = require('ejs');
 const read = require('./controllers/read');
+const create = require('./controllers/create');
+const delete_ = require('./controllers/delete');
+const index='./views/index.ejs'
+
+let file_path='';
 let data_='';
+
+
+function redirect(req,res) {
+    file_path=index;
+    read.read_data(req,res,function(data) {
+        data_=data;
+    });
+}
 
 http.createServer(function (req, res) {
 
-    var file_path = req.url;
-    let data;
+    file_path = req.url;
     switch(file_path){
         case '/':
-        read.read_data(req,res,function(data) {
-            data_=data;
-        });
-        file_path='./views/index.ejs'
-        console.log('server',data_);
+        redirect(req,res);
         break;
         case "/index.css":
         file_path='./views/index.css';
         break;
+
+        case '/create' : 
+        file_path=index;
+        create.create_data(req, res);
+        read.read_data(req,res,function(data) {
+            data_=data;
+        });
+        break;
+
+        // case '/delete' : 
+        // file_path=index;
+        // delete_.delete_data(req,res);
+        // read.read_data(req,res,function(data) {
+        //     data_=data;
+        // });
     }
 
 
@@ -43,7 +66,6 @@ http.createServer(function (req, res) {
         '.wasm': 'application/wasm'
     };
     var contentType = mime_types[extname] ;
-
     fs.readFile(file_path, 'utf-8', function(error, content) {
         if (error) {
             throw error;

@@ -6,7 +6,6 @@ module.exports={
     
     read_model.read_data(function(data){
     
-    // res.render('index', {data: data}); 
     return callback(data);
     });
   }
