@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+  </head>
+<body>
+<!--====form section start====-->
+
+<div class="edit-form">
+  <form action="/update_process" method="POST">
+    <% console.log('form',data); %>
+    <input type="hidden" name="id" value="<%=data.id%>">
+    <input type="text" name="list" >
+    <button type="submit">update</button>
+  </form>
+</div>
+<!--====form section start====-->
+</body>
+</html>
