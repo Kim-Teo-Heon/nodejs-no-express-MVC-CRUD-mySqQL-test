@@ -20,7 +20,7 @@ function promise() {
 }
 
 
-function redirect(req, res, file_path) {
+function file_connect(req, res, file_path) {
     var extname = path.extname(file_path);
         var mime_types = {
             '.ejs': 'text/html',
@@ -58,7 +58,7 @@ http.createServer(function (req, res) {
     
     // switch(file_path){
     //     case '/':
-    //     redirect(req,res);
+    //     file_connect(req,res);
     //     break;
     //     case "/index.css":
     //     file_path='./views/index.css';
@@ -67,7 +67,7 @@ http.createServer(function (req, res) {
     //     case '/create' : 
     //     file_path=index;
     //     create.create_data(req, res);
-    //     redirect(req,res);
+    //     file_connect(req,res);
     //     break;
 
     //     case '/delete' : 
@@ -115,13 +115,13 @@ http.createServer(function (req, res) {
             promise();
         }).then(()=>{
             return setTimeout(()=>{
-                redirect(req, res, file_path);
+                file_connect(req, res, file_path);
             },100);
         })
         
     } else if(file_path==='/index.css'){
         file_path='./views/index.css';
-        redirect(req, res, file_path);
+        file_connect(req, res, file_path);
     } else if(file_path==='/create'){
         promise().then(()=>{
             create.create_data(req, res);
@@ -148,7 +148,7 @@ http.createServer(function (req, res) {
         file_path='./views/update-form.ejs';
         data_=query_data;
         console.log(data_.id);
-        redirect(req, res, file_path);
+        file_connect(req, res, file_path);
     } else if(file_path === '/update_process'){
         promise().then(()=>{
             update.update_data(req,res);
